@@ -1,4 +1,4 @@
-# scarlatti-sonatas-k51-k60
+# scarlatti-sonatas-k71-k80
 
 [LilyPond](https://lilypond.org/) engraving source files used to create Scarlatti's sonatas (and a minuet) K71 through K80.
 
