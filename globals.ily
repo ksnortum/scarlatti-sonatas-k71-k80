@@ -52,7 +52,7 @@
 \layout {
   \context {
     \Score
-    % TODO uncomment \omit BarNumber
+    \omit BarNumber
     \override Slur.details.free-head-distance = 0.75
     \override PhrasingSlur.details.free-head-distance = 0.75
     \override Stem.details.beamed-lengths = #'(3.5 3.9)
@@ -96,24 +96,6 @@ ffStentando =
   \tweak self-alignment-X LEFT
   #(make-dynamic-script ffStentandoMarkup) 
 
-#(define expect-warning-times (lambda args
-   (for-each (lambda _ (apply ly:expect-warning (cdr args)))
-             (iota (car args)))))
-
-% Usage: % #(expect-warning-times 4 "omitting tuplet bracket")
-
-% parenLeft =
-% \once\override Parentheses.stencils =
-% #(grob-transformer 'stencils
-%                     (lambda (grob stils)
-%                       (list (first stils) empty-stencil)))
-% 
-% parenRight =
-% \once\override Parentheses.stencils =
-% #(grob-transformer 'stencils
-%                     (lambda (grob stils)
-%                       (list empty-stencil (second stils))))
-
 startParenthesis = {
   \once \override Parentheses.stencils = #(lambda (grob)
         (let ((par-list (parentheses-interface::calc-parenthesis-stencils grob)))
@@ -133,31 +115,6 @@ endParenthesis = {
 %   d' e' f'
 %   \endParenthesis \parenthesize g'
 % } 
-%
-% { 
-%   \clef bass
-%   < f \parenthesize \tweak font-size #-1 f, >2
-% }
-
-% pocoCrescMarkup = \markup \large \italic "poco cresc."
-% pocoCresc =
-%   #(make-music 'CrescendoEvent 'span-direction START 'span-type 'text
-%                'span-text pocoCrescMarkup)
-
-% crescNoDotMarkup = \markup \large \italic cresc
-% crescNoDot =
-%   #(make-music 'CrescendoEvent 'span-direction START 'span-type 'text
-%                'span-text crescNoDotMarkup)
-
-% crescWOMarkup = \markup \large \italic \whiteout \pad-markup #0.25 cresc.
-% crescWO =
-%   #(make-music 'CrescendoEvent 'span-direction START 'span-type 'text
-%                'span-text crescWOMarkup)
-
-% dimERallMarkup = \markup \large \italic "dim. e rall."
-% dimERall = 
-%   #(make-music 'DecrescendoEvent 'span-direction START 'span-type 'text
-%                'span-text dimERallMarkup)
 
 staffUp   = \change Staff = "upper"
 staffDown = \change Staff = "lower"
@@ -170,10 +127,6 @@ voiceDown = {
   \change Staff = "lower"
   \voiceThree 
 }
-% oneVoiceUp = {
-%   \change Staff = "upper"
-%   \oneVoice
-% }
 
 hideNoteHead = \once {
   \omit Stem
@@ -212,29 +165,11 @@ offsetPositions =
 %   c4( c, d2)
 % }
 
-% beamEighthNotes.24 = {
-%   \set Voice.beamExceptions = \beamExceptions { 16[ 16 16 16] }
-%   \set Voice.baseMoment = #(ly:make-moment 1/8)
-%   \set Voice.beatStructure = 4,0
-% }
-
 beamQuarterNotes.44 = {
   \set Voice.beamExceptions = #'()
   \set Voice.baseMoment = #(ly:make-moment 1/4)
   \set Voice.beatStructure = 1,1,1,1
 }
-
-% beamEighthNotes.38 = {
-%   \set Voice.beamExceptions = #'()
-%   \set Voice.baseMoment = #(ly:make-moment 1/8)
-%   \set Voice.beatStructure = 1,1,1
-% }
-
-% revertBeaming = {
-%   \unset Voice.beamExceptions
-%   \unset Voice.baseMoment
-%   \unset Voice.beatStructure
-% }
 
 % Subdivide beams
 % e.g.: a32 \sdb2 b a b
@@ -247,54 +182,16 @@ sdb = #(define-music-function
      \set stemLeftBeamCount = #n
    #})
 
-
-% strictSpacingOn = {
-%   \override Score.SpacingSpanner.strict-note-spacing = ##t
-%   \newSpacingSection
-% }
-% strictSpacingOff = {
-%   \override Score.SpacingSpanner.strict-note-spacing = ##f
-%   \newSpacingSection
-% }
-
-% accidentalOverTrill = \once {
-%   \override TextScript.script-priority = -50
-%   \override Script.script-priority = -100
-% }
-
-% trillBelow = \tweak Script.script-priority -100 \etc
 insideSlur = \tweak avoid-slur #'inside \etc
-% noPriority = \tweak outside-staff-priority ##f \etc
-
-% clefAfterBarLine = 
-%   \once \override Score.BreakAlignment.break-align-orders = 
-%     #(make-vector 3 '(staff-bar clef))
 
 %
 % Markup
 %
 
 trillNatural = \markup \teeny \concat { " " \natural }
-% trillFlat = \markup \teeny \concat { " " \flat }
-% md = \markup \large \italic \halign #-0.4 m.d.
-% ms = \markup \large \italic \halign #-0.2 m.s.
-% sopra = \markup \large \italic sopra
-% crescMarkup = \markup \large \italic cresc.
-% dimMarkup = \markup \large \italic dim.
-% pesante = \markup \large \italic pesante
-% rallAPocoAPoco = 
-%   \markup \large \italic \whiteout \pad-markup #0.25 "rall. a poco a poco"
 pocoRit = \markup \large \italic "poco rit."
 rall = \markup \large \italic rall.
-% rit = \markup \large \italic rit.
 aTempo = \markup \large \italic "a tempo"
-% dimERall = \markup \large \italic "dim. e rall."
-% pocoStent = \markup \large \italic "poco stent."
 nonLegato = \markup \large \italic "non legato"
-% pocoMenoMosso = 
-%   \markup \large \italic \whiteout \pad-markup #0.25 "poco meno mosso"
 pesante = \markup \large \italic pesante
 sempreF = \markup { \large \italic sempre \dynamic f }
-% scherzando = \markup \large\italic scherzando
-% sfMarkup = \markup \dynamic sf
-% ppMarkup = \markup \dynamic pp
