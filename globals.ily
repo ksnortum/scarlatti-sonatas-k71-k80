@@ -86,15 +86,9 @@
   }
 }
 
-
 %
 % Definitions
 %
-
-ffStentandoMarkup = \markup { ff \normal-text \large \italic stentando }
-ffStentando = 
-  \tweak self-alignment-X LEFT
-  #(make-dynamic-script ffStentandoMarkup) 
 
 startParenthesis = {
   \once \override Parentheses.stencils = #(lambda (grob)
